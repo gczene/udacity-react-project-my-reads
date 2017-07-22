@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default () => {
+export default ({onBookStatusChange}) => {
     return (
       <div className="book-shelf-changer">
-        <select>
+        <select onChange={onBookStatusChange}>
           <option value="none" disabled>Move to...</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>
