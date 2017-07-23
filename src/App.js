@@ -27,25 +27,25 @@ class BooksApp extends React.Component {
    */
   rearrangeBooks = (book, shelf) => {
     this.setState(prevState => {
-      let newState;
+      let books;
       if (shelf === 'none') {
         // deleting from list
-        newState = {...prevState, ...{books: prevState.books.filter(b => (b.id !== book.id))}};
+        books = prevState.books.filter(b => (b.id !== book.id));
       } else if (this.state.books.some(b => (b.id === book.id))) {
         // book already exists in list. Shelf update needed
-        newState = {...prevState, ...{books: prevState.books.map(b => {
+        books = prevState.books.map(b => {
           if (b.id !== book.id) {
             return b;
           } else {
             return {...b, ...{shelf}}
           }
-        })}};
+        })
       } else {
         // beand new book not in the list
         let newBook = {...book, ...{shelf}};
-        newState = {...prevState, ...{books: prevState.books.concat(newBook)}};
+        books = prevState.books.concat(newBook);
       }
-      return newState;
+      return {...prevState, ...{books}};
     });
   }
 
