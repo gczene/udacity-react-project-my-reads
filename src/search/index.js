@@ -56,19 +56,6 @@ class Search extends React.Component{
     }
   }
 
-  /**
-   * Called when user is changing status
-   * @param  {object} book book object
-   * @param  {object} evt  select event object
-   * @return {undefined}
-   */
-  onBookStatusChange = (book, evt) => {
-    let data = {...{id: book.id}};
-    API
-      .update(data, evt.target.value)
-      .then(() => this.props.history.push('/'));
-  }
-
   render() {
     return (
       <div className="search-books">
@@ -93,7 +80,7 @@ class Search extends React.Component{
             {!this.state.isLoading && this.state.searchFor && `Search Results (${this.state.results.length}):`}
           </h2>
           <div className="bookshelf-books">
-            <BooksGrid onBookStatusChange={this.onBookStatusChange} books={this.state.results} />
+            <BooksGrid onBookStatusChange={this.props.onBookStatusChange} books={this.state.results} />
           </div>
 
         </div>
