@@ -4,6 +4,7 @@ import {Route} from 'react-router-dom';
 import Home from './home';
 import Search from './search';
 import {getAll, update} from './BooksAPI';
+import sortBy from 'sort-by';
 
 class BooksApp extends React.Component {
   componentDidMount() {
@@ -11,6 +12,7 @@ class BooksApp extends React.Component {
       isLoading: true
     });
     getAll().then(books => {
+      books.sort(sortBy('title'));
       this.setState({isLoading: false, books});
     });
   }
@@ -45,6 +47,7 @@ class BooksApp extends React.Component {
         let newBook = {...book, ...{shelf}};
         books = prevState.books.concat(newBook);
       }
+      books.sort(sortBy('title'));
       return {...prevState, ...{books}};
     });
   }
