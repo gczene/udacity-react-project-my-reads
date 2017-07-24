@@ -27,6 +27,26 @@ class Search extends React.Component{
   timer = null;
 
   /**
+   * Setting shelf to correct value since /search API not listing the user's own books
+   * @param {array} books result of search response
+   * @return {array}  amended books array
+   */
+  setBooksShelf = (books) => {
+    const amendedBooks = books.map(book => {
+      let filteredByUserBookList = this.props.books.filter(myBook => {
+        return book.id === myBook.id;
+      });
+      let correctShelf = filteredByUserBookList.length && filteredByUserBookList[0].shelf;
+      if (correctShelf) {
+        return {...book, ...{shelf: correctShelf}};
+      } else {
+        return book;
+      }
+    });
+    return amendedBooks;
+  }
+
+  /**
    * search callback
    * called when user is typing and fires debounced ajax call
    * if user input is empty resets booklist to empty list
@@ -46,7 +66,7 @@ class Search extends React.Component{
       this.timeoutFunc = () => {
         API.search(searchFor)
           .then(response => {
-            let results = response.error ? [] : response;
+            let results = response.error ? [] : this.setBooksShelf(response);
             results.sort(sortBy('title'));
             this.setState({results, isLoading: false});
           });
