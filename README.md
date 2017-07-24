@@ -7,6 +7,7 @@ Clone this repository and run:
 ```
 npm install
 ```
+Or just simply go to: https://gczene.github.io/udacity-react-project-my-reads/ 
 
 ## How to start
 ```
