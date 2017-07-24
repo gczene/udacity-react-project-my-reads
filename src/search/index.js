@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import * as API from '../BooksAPI';
 import BooksGrid from '../books-grid';
+import sortBy from 'sort-by';
 
 class Search extends React.Component{
   constructor(props) {
@@ -46,6 +47,7 @@ class Search extends React.Component{
         API.search(searchFor)
           .then(response => {
             let results = response.error ? [] : response;
+            results.sort(sortBy('title'));
             this.setState({results, isLoading: false});
           });
       };
