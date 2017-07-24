@@ -1,6 +1,6 @@
 import React from 'react';
 import bookStatuses from '../utils/book-statuses';
-import camelCase from 'camelcase';
+import camelCase from 'camel-case';
 
 export default ({book, onBookStatusChange}) => {
   return (
